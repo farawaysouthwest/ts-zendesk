@@ -1,17 +1,17 @@
 {
-  "name": "ts-zendesk",
+  "name": "ts-zendesk-api",
   "version": "0.0.1",
   "description": "Zendesk API library with Typescript",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/farawaysouthwest/ts-zendesk.git"
+    "url": "git+https://github.com/farawaysouthwest/ts-zendesk-api.git"
   },
   "author": "farawaysouthwest",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/farawaysouthwest/ts-zendesk/issues"
+    "url": "https://github.com/farawaysouthwest/ts-zendesk-api/issues"
   },
-  "homepage": "https://github.com/farawaysouthwest/ts-zendesk#readme",
+  "homepage": "https://github.com/farawaysouthwest/ts-zendesk-api#readme",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
