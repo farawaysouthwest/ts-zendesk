@@ -82,7 +82,10 @@ export class ZendeskClient {
   ): Promise<UpdateTicketResponse.Res> {
     try {
       const { data } = await this.restHandler.put<UpdateTicketResponse.Res>(
-        `/tickets/${payload.id}`
+        `/tickets/${payload.id}`,
+        {
+          ticket: payload.ticket,
+        }
       );
 
       return data;
