@@ -9,4 +9,12 @@ export {
   QueryResponse,
   UpdateTicketResponse,
 } from "./types/response-types";
-export { ZendeskConfig, Comment, Ticket, Requester } from "./types/util-types";
+export {
+  ZendeskConfig,
+  Comment,
+  Ticket,
+  Requester,
+  Job,
+  JobStatus,
+  Result,
+} from "./types/util-types";

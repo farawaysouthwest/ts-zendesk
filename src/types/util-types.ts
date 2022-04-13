@@ -27,3 +27,24 @@ export interface Requester {
   name: string;
   email: string;
 }
+
+export interface Job {
+  job_status: JobStatus;
+}
+
+export interface JobStatus {
+  id: string;
+  message: string;
+  progress: number;
+  results: Result[];
+  status: string;
+  total: number;
+  url: string;
+}
+
+export interface Result {
+  action: string;
+  id: number;
+  status: string;
+  success: boolean;
+}

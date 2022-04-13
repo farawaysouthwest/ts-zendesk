@@ -9,7 +9,7 @@ import {
   QueryResponse,
   UpdateTicketResponse,
 } from "./types/response-types";
-import { ZendeskConfig } from "./types/util-types";
+import { Job, ZendeskConfig } from "./types/util-types";
 
 export class ZendeskClient {
   private baseURL: string;
@@ -52,6 +52,18 @@ export class ZendeskClient {
         {
           params: { ...params },
         }
+      );
+
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  public async checkJobStatus(statusId: string): Promise<Job> {
+    try {
+      const { data } = await this.restHandler.get<Job>(
+        `/job_statuses/${statusId}.json`
       );
 
       return data;
