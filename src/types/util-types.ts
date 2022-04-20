@@ -17,6 +17,8 @@ export interface Ticket {
   recipient?: string;
   custom_fields?: { id: number; value: string }[];
   requester?: Requester;
+  updated_stamp?: string;
+  safe_update?: boolean;
 }
 
 export interface Comment {

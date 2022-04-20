@@ -22,7 +22,5 @@ export module UpdateTicketRequest {
   export interface Req {
     id: number;
     ticket: Ticket;
-    updated_stamp?: string;
-    safe_update?: boolean;
   }
 }
