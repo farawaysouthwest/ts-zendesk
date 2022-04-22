@@ -1,4 +1,5 @@
-import axios, { Axios, AxiosRequestConfig } from "axios";
+import axios, { Axios, AxiosError, AxiosRequestConfig } from "axios";
+import { setTimeout } from "timers/promises";
 import {
   CreateTicketRequest,
   QueryRequest,
@@ -43,11 +44,30 @@ export class ZendeskClient {
    * @param params
    * @returns
    */
+  public async queryByTicketId(
+    ticketId: number
+  ): Promise<QueryResponse.SingleRes> {
+    try {
+      const { data } = await this.restHandler.get<QueryResponse.SingleRes>(
+        `/tickets/${ticketId}`
+      );
+
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  /**
+   *
+   * @param params
+   * @returns
+   */
   public async queryByExternalId(
     params: QueryRequest.Params
-  ): Promise<QueryResponse.Res> {
+  ): Promise<QueryResponse.ListRes> {
     try {
-      const { data } = await this.restHandler.get<QueryResponse.Res>(
+      const { data } = await this.restHandler.get<QueryResponse.ListRes>(
         "/tickets",
         {
           params: { ...params },
@@ -89,20 +109,38 @@ export class ZendeskClient {
     }
   }
 
-  public async update(
+  public async update(payload: UpdateTicketRequest.Req) {
+    try {
+      return await this.safeUpdate(payload);
+    } catch (error) {
+      // if error is zendesk 409, retry update.
+      if (error.response.status === 409) {
+        return await this.safeUpdate(payload);
+      }
+      console.error(error.response);
+    }
+  }
+
+  // Private
+
+  private async safeUpdate(
     payload: UpdateTicketRequest.Req
   ): Promise<UpdateTicketResponse.Res> {
-    try {
-      const { data } = await this.restHandler.put<UpdateTicketResponse.Res>(
-        `/tickets/${payload.id}`,
-        {
-          ticket: payload.ticket,
-        }
-      );
+    const {
+      ticket: { updated_at },
+    } = await this.queryByTicketId(payload.id);
 
-      return data;
-    } catch (err) {
-      console.error(err);
-    }
+    const { data } = await this.restHandler.put<UpdateTicketResponse.Res>(
+      `/tickets/${payload.id}`,
+      {
+        ticket: {
+          updated_stamp: updated_at,
+          safe_update: true,
+          ...payload.ticket,
+        },
+      }
+    );
+
+    return data;
   }
 }

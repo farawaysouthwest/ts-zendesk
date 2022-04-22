@@ -1,12 +1,20 @@
 // Query Ticket
 
 export module QueryResponse {
-  export interface Res {
+  export interface ListRes {
     tickets: Ticket[];
     next_page: null;
     previous_page: null;
     count: number;
   }
+
+  export interface SingleRes {
+    ticket: Ticket;
+    audit: Audit;
+  }
+
+  export interface Audit {}
+
   export interface Ticket {
     assignee_id: number;
     collaborator_ids: number[];
