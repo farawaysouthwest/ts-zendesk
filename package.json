@@ -1,6 +1,6 @@
 {
   "name": "ts-zendesk-api",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Zendesk API library with Typescript",
   "repository": {
     "type": "git",
