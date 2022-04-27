@@ -8,9 +8,9 @@ export type ZendeskConfig = {
 };
 
 export interface Ticket {
-  comment?: Comment;
-  status?: "solved" | "open" | "new";
-  priority?: "low" | "normal";
+  comment: Comment;
+  status?: "solved" | "open" | "new" | "pending" | "on-hold";
+  priority?: "low" | "normal" | "high" | "urgent";
   subject?: string;
   external_id?: string;
   tags?: string[];
@@ -22,7 +22,19 @@ export interface Ticket {
 }
 
 export interface Comment {
+  author_id?: number;
   body: string;
+  created_at?: string;
+  html_body?: string;
+  metadata?: { [key: string]: string | number | boolean };
+  public?: boolean;
+  type?: "Comment" | "VoiceComment";
+  via?: Via;
+}
+
+export interface Via {
+  channel: string;
+  source?: { [key: string]: string | number | boolean };
 }
 
 export interface Requester {
