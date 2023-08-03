@@ -89,3 +89,30 @@ export module UpdateTicketResponse {
     ticket: { [key: string]: string | number };
   }
 }
+
+/// Upload Attachment ///
+
+export interface Upload {
+  attachment: Attachment;
+  attachments: Attachment[];
+  token: string;
+}
+
+export interface Attachment {
+  content_type: string;
+  content_url: string;
+  deleted: boolean;
+  file_name: string;
+  height: string;
+  id: number;
+  inline: boolean;
+  mapped_content_url: string;
+  size: number;
+  thumbnails: string[];
+  url: string;
+  width: string;
+}
+
+export interface UploadResponse {
+  upload: Upload;
+}

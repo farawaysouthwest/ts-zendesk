@@ -27,7 +27,8 @@
     "publish-dryrun": "npm run build && npm publish --dry-run"
   },
   "dependencies": {
-    "axios": "^0.26.1"
+    "axios": "^0.26.1",
+    "form-data": "^4.0.0"
   },
   "devDependencies": {
     "@types/chai": "^4.3.0",

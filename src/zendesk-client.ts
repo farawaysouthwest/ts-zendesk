@@ -1,5 +1,4 @@
-import axios, { Axios, AxiosError, AxiosRequestConfig } from "axios";
-import { setTimeout } from "timers/promises";
+import axios, { Axios, AxiosRequestConfig } from "axios";
 import {
   CreateTicketRequest,
   QueryRequest,
@@ -9,8 +8,10 @@ import {
   CreateTicketResponse,
   QueryResponse,
   UpdateTicketResponse,
+  UploadResponse,
 } from "./types/response-types";
 import { Job, ZendeskConfig } from "./types/util-types";
+import { Buffer } from "buffer";
 
 export class ZendeskClient {
   private baseURL: string;
@@ -142,5 +143,30 @@ export class ZendeskClient {
     );
 
     return data;
+  }
+
+  public async uploadFile({
+    fileData,
+    name,
+    type,
+  }: {
+    fileData: Buffer;
+    name: string;
+    type: string;
+  }) {
+    const { data } = await this.restHandler.post<UploadResponse>(
+      `/uploads.json`,
+      fileData,
+      {
+        headers: {
+          "Content-Type": type,
+        },
+        params: { filename: name },
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity,
+      }
+    );
+
+    return data.upload;
   }
 }
